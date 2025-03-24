@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interativo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #007BFF, #0056b3);
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        .category-btn {
+            background-color: #007BFF;
+            color: white;
+        }
+        .category-btn:hover {
+            background-color: #0056b3;
+        }
+        .correct {
+            background-color: #28a745 !important;
+            color: white;
+        }
+        .incorrect {
+            background-color: #dc3545 !important;
+            color: white;
+        }
+        #timer {
+            font-size: 18px;
+            font-weight: bold;
+            color: red;
+            margin-top: 10px;
+            background: white;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            animation: pulse 1s infinite alternate;
+        }
+        #new-game {
+            display: none;
+            background-color: #ff0000;
+            color: white;
+            font-weight: bold;
+        }
+        #new-game:hover {
+            background-color: #cc0000;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 id="title">Escolha uma categoria:</h2>
+        <div id="category-selection">
+            <button class="category-btn" onclick="startQuiz('historia')">História Mundial</button>
+            <button class="category-btn" onclick="startQuiz('geografia')">Geografia</button>
+            <button class="category-btn" onclick="startQuiz('cultura')">Cultura Geral</button>
+        </div>
+        <h2 id="question" style="display:none;"></h2>
+        <div id="options"></div>
+        <p id="timer"></p>
+        <button id="new-game" onclick="restartGame()">Novo Jogo</button>
+    </div>
+
+    <script>
+        const quizData = {
+            historia: [
+                { question: "Quem foi o líder da Revolução Russa de 1917?", options: ["Karl Marx", "Vladimir Lenin", "Joseph Stalin", "Leon Trotsky"], answer: "Vladimir Lenin" }
+            ],
+            geografia: [
+                { question: "Qual é o maior oceano do mundo?", options: ["Atlântico", "Índico", "Pacífico", "Ártico"], answer: "Pacífico" }
+            ],
+            cultura: [
+                { question: "Quem pintou a Mona Lisa?", options: ["Van Gogh", "Picasso", "Leonardo da Vinci", "Michelangelo"], answer: "Leonardo da Vinci" }
+            ]
+        };
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedCategory = "";
+        let timer;
+        let timeLeft = 10;
+
+        function startQuiz(category) {
+            selectedCategory = category;
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById("category-selection").style.display = "none";
+            document.getElementById("question").style.display = "block";
+            document.getElementById("new-game").style.display = "none";
+            document.getElementById("title").innerText = "Responda as perguntas:";
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizData[selectedCategory].length) {
+                document.getElementById("question").innerText = `Quiz finalizado! Você acertou ${score} de ${quizData[selectedCategory].length} perguntas.`;
+                document.getElementById("options").innerHTML = "";
+                document.getElementById("timer").innerText = "";
+                return;
+            }
+
+            const questionObj = quizData[selectedCategory][currentQuestionIndex];
+            document.getElementById("question").innerText = questionObj.question;
+            document.getElementById("question").style.animation = "fadeIn 0.5s ease-in-out";
+            const optionsContainer = document.getElementById("options");
+            optionsContainer.innerHTML = "";
+
+            questionObj.options.forEach(option => {
+                const button = document.createElement("button");
+                button.innerText = option;
+                button.onclick = () => checkAnswer(button, option);
+                optionsContainer.appendChild(button);
+            });
+
+            startTimer();
+        }
+
+        function checkAnswer(button, selected) {
+            clearInterval(timer);
+            const correctAnswer = quizData[selectedCategory][currentQuestionIndex].answer;
+            const allButtons = document.querySelectorAll("#options button");
+
+            if (selected === correctAnswer) {
+                button.classList.add("correct");
+                score++;
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }, 2000);
+            } else {
+                button.classList.add("incorrect");
+                allButtons.forEach(btn => {
+                    if (btn.innerText === correctAnswer) {
+                        btn.classList.add("correct");
+                    }
+                });
+                document.getElementById("new-game").style.display = "block";
+            }
+
+            allButtons.forEach(btn => btn.disabled = true);
+        }
+
+        function startTimer() {
+            timeLeft = 10;
+            document.getElementById("timer").innerText = `⏳ ${timeLeft}s`;
+            clearInterval(timer);
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById("timer").innerText = `⏳ ${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.getElementById("timer").innerText = "⏳ Tempo esgotado!";
+                    document.getElementById("new-game").style.display = "block";
+                    disableOptions();
+                }
+            }, 1000);
+        }
+
+        function disableOptions() {
+            document.querySelectorAll("#options button").forEach(btn => {
+                btn.disabled = true;
+            });
+        }
+
+        function restartGame() {
+            document.getElementById("category-selection").style.display = "block";
+            document.getElementById("question").style.display = "none";
+            document.getElementById("options").innerHTML = "";
+            document.getElementById("timer").innerText = "";
+            document.getElementById("new-game").style.display = "none";
+            document.getElementById("title").innerText = "Escolha uma categoria:";
+        }
+    </script>
+
+</body>
+</html>

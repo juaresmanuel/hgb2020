@@ -1,0 +1,331 @@
+@charset "UTF-8"; 
+@font-face {
+    font-family: "Passion One", sans-serif;
+    src: url(fontes/PassionOne-Bold.ttf);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   }
+ 
+body{
+    background-image: url(imagens/fundo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+header {
+ 
+ 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: rgba(0, 0, 0, 0.8); /* Transparência para ficar bonito */
+    font-family: "Passion One", sans-serif;
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    z-index: 1000; /* Para ficar sobre os outros elementos */
+  }
+  body {
+    padding-top: 60px; /* Evita que o conteúdo fique coberto pelo header fixo */
+  }
+  .menu-hamburguer {
+    font-size: 30px;
+    cursor: pointer;
+   position: absolute;
+   left: 2px;
+   bottom: 2px;
+}
+
+/* Estilo do menu */
+
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu ul li {
+    padding: 15px;
+    text-align: center;
+}
+
+.menu ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+a:hover{
+    background-color: rgba(0, 128, 0, 0.884);
+    transition: 0.5s;
+    padding: 10px;
+}
+
+/* Estilo para quando o menu estiver visível */
+.menu.ativo {
+    display: block;
+}
+.menu {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Esconde o menu inicialmente */
+    width: 250px;
+    height: 100vh;
+    background: #333;
+    padding-top: 60px;
+    transition: left 0.5s ease-in-out; /* ANIMAÇÃO SUAVE */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    text-align: left;
+}
+
+.menu ul {
+    list-style: none;
+}
+
+.menu ul li {
+    padding: 15px;
+    text-align: center;
+}
+
+.menu ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+/* Ícone de fechar */
+.fechar {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Overlay (fundo escuro quando o menu está aberto) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Esconde por padrão */
+}
+
+/* Quando o menu está aberto */
+.menu.ativo {
+    left: 0;
+}
+
+.overlay.ativo {
+    display: block;
+}
+/* Container do carrossel */
+.carrossel-container {
+    position: relative;
+  
+    width: 60%; /* Menor tamanho */
+    max-width: 500px;
+    height: 250px; /* Altura fixa */
+    margin: 100px auto 80px 90;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Slides (imagens) */
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+/* Apenas a imagem ativa será visível */
+.slide.ativo {
+    opacity: 1;
+}
+
+/* Ajuste das imagens */
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+/* Alinha o carrossel e o texto lado a lado */
+.conteudo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Mantém alinhado à esquerda */
+    gap: 20px; /* Espaço entre carrossel e texto */
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+/* Carrossel */
+/* Container principal para alinhar o carrossel e o texto */
+.container {
+    display: flex;
+    align-items: center; /* Alinha ao centro verticalmente */
+    justify-content: space-between; /* Espaço entre os itens */
+    gap: 30px; /* Espaço entre carrossel e texto */
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+/* Carrossel */
+.carrossel-container {
+    width: 50%; /* Reduz tamanho para dar espaço ao texto */
+    max-width: 400px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Texto ao lado do carrossel */
+.texto {
+   
+    background-color: #33333393;
+    width: 50%;
+    text-align: left;
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.texto h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.texto p {
+    font-size: 1.5em;
+    line-height: 1.5;
+    color: white;
+    font-style: italic;
+}
+
+/* Responsividade: Se a tela for pequena, coloca um embaixo do outro */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .carrossel-container, .texto {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+/* Fundo escuro do loading */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Ajuste do GIF */
+#loading img {
+    width: 120px; /* Ajuste o tamanho conforme necessário */
+    height: auto;
+}
+/* Estilo para animação de cada linha da página */
+.line {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Quando a linha entra na tela, aplica a animação */
+.line.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* Seção de Destaques */
+.destaques .grid {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    border-radius: 20px;
+}
+.destaques .destaque {
+    margin: 0px;
+    text-align: center;
+    background-color: rgba(0, 128, 0, 0.685);
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 20px;
+}
+.destaques img {
+    width: 100%;
+    height: 100px;
+    margin: none;
+   border-top-left-radius: 10px;
+   border-top-right-radius: 10px;
+    }
+
+/* Depoimentos */
+.depoimentos {
+    text-align: center;
+    font-style: italic;
+    background-color: rgba(0, 0, 255, 0.486);
+    color: white;
+}
+
+/* Linha do Tempo */
+.linha-do-tempo ul {
+    list-style: none;
+    padding: 0;
+}
+.linha-do-tempo li {
+    background: #31c0148a;
+    color: white;
+    font-weight: bold;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif; }
+h2 {
+    background-image: linear-gradient(to right, blue, rgb(3, 143, 224));
+    color: rgb(16, 240, 35);
+}
+footer {
+    background: #222;
+    color: rgba(255, 255, 255, 0.753);
+    text-align: center;
+    padding: 15px;
+    font-size: 16px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+}
+
+
+
+
+
+
+

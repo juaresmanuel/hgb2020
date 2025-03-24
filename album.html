@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Galeria de Fotos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #353e49;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        h1{
+            color: rgba(17, 156, 47, 0.774);
+        }
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+
+<script>
+    fetch("header.html")
+        .then(response => response.text())
+        .then(data => document.getElementById("header").innerHTML = data);
+</script>
+
+    <h1>Galeria de Fotos</h1>
+    <div class="gallery">
+        <img src="imagens/IMG-20250322-WA0103.jpg" alt="Colega 1" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0479.jpg" alt="Colega 2" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0482.jpg" alt="Colega 3" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0478.jpg" alt="Colega 1" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0479.jpg" alt="Colega 2" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0484.jpg" alt="Colega 3" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0485.jpg" alt="Colega 3" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0490.jpg" alt="Colega 3" onclick="openLightbox(this.src)"><img src="imagens/IMG-20250321-WA0504.jpg" alt="Colega 3" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0495.jpg" alt="Colega 3" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0496.jpg" alt="Colega 3" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0498.jpg" alt="Colega 3" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0499.jpg" alt="Colega 3" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0500.jpg" alt="Colega 3" onclick="openLightbox(this.src)"><img src="imagens/IMG-20250321-WA0503.jpg" alt="Colega 3" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0501.jpg" alt="Colega 3" onclick="openLightbox(this.src)">
+        <img src="imagens/IMG-20250321-WA0502.jpg" alt="Colega 3" onclick="openLightbox(this.src)">
+        <!-- Adicione mais fotos conforme necessário -->
+    </div>
+    
+    <div class="lightbox" id="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById("lightbox-img").src = src;
+            document.getElementById("lightbox").style.display = "flex";
+        }
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+    </script>
+</body>
+</html>
