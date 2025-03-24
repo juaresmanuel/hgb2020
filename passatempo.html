@@ -11,6 +11,118 @@
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
         }
+        header {
+ 
+ 
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 120px;
+ background: rgba(0, 0, 0, 0.8); /* Transparência para ficar bonito */
+ font-family: "Passion One", sans-serif;
+ color: white;
+ font-weight: bold;
+ padding: 15px;
+ text-align: center;
+ z-index: 1000; /* Para ficar sobre os outros elementos */
+}
+body {
+ padding-top: 60px; /* Evita que o conteúdo fique coberto pelo header fixo */
+}
+.menu-hamburguer {
+ font-size: 30px;
+ cursor: pointer;
+position: absolute;
+left: 2px;
+bottom: 2px;
+}
+
+/* Estilo do menu */
+
+
+.menu ul {
+ list-style: none;
+ padding: 0;
+}
+
+.menu ul li {
+ padding: 15px;
+ text-align: center;
+}
+
+.menu ul li a {
+ color: white;
+ text-decoration: none;
+ display: block;
+}
+a:hover{
+ background-color: rgba(0, 128, 0, 0.884);
+ transition: 0.5s;
+ padding: 10px;
+}
+
+/* Estilo para quando o menu estiver visível */
+.menu.ativo {
+ display: block;
+}
+.menu {
+ position: fixed;
+ top: 0;
+ left: -250px; /* Esconde o menu inicialmente */
+ width: 250px;
+ height: 100vh;
+ background: #333;
+ padding-top: 60px;
+ transition: left 0.5s ease-in-out; /* ANIMAÇÃO SUAVE */
+ box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+ text-align: left;
+}
+
+.menu ul {
+ list-style: none;
+}
+
+.menu ul li {
+ padding: 15px;
+ text-align: center;
+}
+
+.menu ul li a {
+ color: white;
+ text-decoration: none;
+ display: block;
+}
+
+/* Ícone de fechar */
+.fechar {
+ position: absolute;
+ top: 15px;
+ right: 20px;
+ font-size: 25px;
+ color: white;
+ cursor: pointer;
+}
+
+/* Overlay (fundo escuro quando o menu está aberto) */
+.overlay {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background: rgba(0, 0, 0, 0.5);
+ display: none; /* Esconde por padrão */
+}
+
+/* Quando o menu está aberto */
+.menu.ativo {
+ left: 0;
+}
+
+.overlay.ativo {
+ display: block;
+}
         body {
             display: flex;
             justify-content: center;
@@ -93,6 +205,27 @@
     </style>
 </head>
 <body>
+    <header>
+        <h1>HG-B 2020 Mutu Ya Kevela</h1>
+        <div class="menu-hamburguer" id="menu-btn">
+            ☰ <!-- Ícone do menu (ou pode ser um SVG) -->
+        </div>
+        <nav class="menu" id="menu">
+            <div class="fechar" id="fechar-menu">✖</div>
+            
+
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="perfil.html">Perfíl dos colegas</a></li>
+                <li><a href="album.html" tar>Álbum</a></li>
+                <li><a href="#">Materiais didáticos</a></li>
+                <li><a href="passatempo.html">Passatempo</a></li>
+                <li><a href="#">Sobre</a></li>
+              
+            </ul>
+        </nav>
+
+      </header>
 
     <div class="container">
         <h2 id="title">Escolha uma categoria:</h2>
@@ -216,6 +349,29 @@
             document.getElementById("new-game").style.display = "none";
             document.getElementById("title").innerText = "Escolha uma categoria:";
         }
+        // Seleciona os elementos
+const menuBtn = document.getElementById("menu-btn");
+const menu = document.getElementById("menu");
+
+// Adiciona evento de clique ao botão do menu
+menuBtn.addEventListener("click", function () {
+    menu.classList.toggle("ativo"); // Alterna entre abrir e fechar o menu
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const menuBtn = document.getElementById("menu-btn");
+    const menu = document.getElementById("menu");
+    const fecharMenu = document.getElementById("fechar-menu");
+
+    // Abrir menu
+    menuBtn.addEventListener("click", function () {
+        menu.classList.add("ativo");
+    });
+
+    // Fechar menu
+    fecharMenu.addEventListener("click", function () {
+        menu.classList.remove("ativo");
+    });
+});
     </script>
 
 </body>
