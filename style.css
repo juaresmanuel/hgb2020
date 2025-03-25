@@ -30,6 +30,7 @@ header {
     padding: 15px;
     text-align: center;
     z-index: 1000; /* Para ficar sobre os outros elementos */
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.425);
   }
   body {
     padding-top: 60px; /* Evita que o conteúdo fique coberto pelo header fixo */
@@ -216,10 +217,11 @@ a:hover{
 
 .texto h2 {
     font-family: 'Passion One', sans-serif;
-    color: RGB(66, 105, 173);
+    color: brown;
     font-size: 2em;
     margin-bottom: 10px;
-    color: RGB(66, 105, 173);
+    
+    font-weight: lighter;
 }
 
 .texto p {
@@ -285,7 +287,7 @@ a:hover{
     padding: 5px;
     font-family: 'Passion One', sans-serif;
     font-size: 1.5em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.342);
+   
 
 }
 .destaques h2{
@@ -328,8 +330,26 @@ a:hover{
     border-radius: 5px;
     font-family: 'Passion One', sans-serif;
     font-size:1.5em; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.342);
+   
 
+}
+.quiz h2{
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+
+}
+.quiz p{
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: rgba(0, 102, 255, 0.986);
+}
+button{
+    background-color: rgb(17, 172, 243);
+    color: rgba(255, 255, 255, 0.664);
+    padding: 5px;
+    font-weight: bolder;
+    border-radius: 10px;
 }
     
 
